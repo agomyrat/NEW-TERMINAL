@@ -1,0 +1,123 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+nav.navbar {
+    background: #fff !important;
+    box-shadow: 0 0 2px #888;
+}
+nav.navbar > .nav-link,
+nav.navbar > button.navbar-toggler {
+    width: 80px;
+    height: 80px;
+    background-size: 40px;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0.25rem;
+}
+nav.navbar > button.navbar-toggler:focus {
+    outline: unset;
+}
+#transfer-btn {
+    background-image: url('../IMG/transfer.png');
+    background-color: transparent;
+}
+#barcode-btn {
+    background-color: #fff;
+    background-image: url('../IMG/barcode.png');
+    transition: background 0.5s;
+}
+
+#barcode-btn.error {
+    background-color: #ff00006e !important;
+}
+
+#info {
+    height: calc(100vh - 85px);
+    overflow: auto;
+}
+
+.info_al {
+    display: none;
+}
+.info_al.active {
+    display: block;
+    margin: 35vh auto;
+    color: #888;
+    word-wrap: normal;
+    text-align: center;
+}
+
+.loading {
+    display: none;
+}
+.loading.active {
+    display: block;
+    margin: 35vh auto;
+    text-align: center;
+}
+
+/* INFO BOLUMI */
+.items {
+    width: 96%;
+    height: auto;
+    margin: 10px auto;
+    padding: 10px;
+    box-shadow: 0 0 2px #444;
+    display: flex;
+    transition: background 1s;
+}
+.items > .item-info {
+    width: 70%;
+}
+.items > .item-info > .code {
+    font-size: 1em;
+    font-weight: bold;
+}
+.items > .item-info > .name {
+    color: #555;
+    font-size: 14px;
+}
+.count {
+    width: 30%;
+    padding: 5px;
+    box-sizing: border-box;
+}
+.count > .up,
+.count > .down {
+    width: 35%;
+    height: 25px;
+    background-repeat: no-repeat;
+    background-size: 25px;
+    background-position: center;
+    margin: 0 auto;
+}
+.count > .up {
+    background-image: url('../IMG/side.png');
+    transform: rotate(-90deg);
+}
+.count > .down {
+    background-image: url('../IMG/side.png');
+    transform: rotate(90deg);
+    transition: 0.5s;
+}
+.count > .down.delete {
+    background-image: url('../IMG/trash.png');
+    transform: rotate(0deg);
+}
+.count input {
+    width: 100%;
+    outline: none;
+    border: none;
+    text-align: center;
+    font-size: 1em;
+    font-weight: bold;
+    color: #555;
+    background: transparent;
+}
+.new {
+    background: rgb(102, 176, 255);
+}

@@ -1,0 +1,248 @@
+body{
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+nav.navbar{
+    background: #fff !important;
+    box-shadow: 0 0 2px #888;
+}
+nav.navbar > .nav-link, nav.navbar > button.navbar-toggler{
+    width: 80px;
+    height: 80px;
+    background-size: 40px;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0.25rem;
+}
+nav.navbar > button.navbar-toggler:focus{
+    outline:unset;
+}
+#search-btn{
+    background-image:url('../IMG/search.png');
+    background-color:transparent;
+}
+#barcode-btn{
+    background-color: #fff;
+    background-image:url('../IMG/barcode.png');
+}
+
+/* SEARCH PANEL */
+#search-panel{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: -100vw;
+    background: #fff;
+    box-shadow: 0 0 3px #ddd;
+    transition:left .7s;
+}
+
+#search-panel.active{
+    z-index: 10;
+    left:0;
+}
+
+#search-panel > .top{
+    width: 100%;
+    height: 45px; 
+    margin: 10px auto 2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    padding: 10px;
+
+}
+#search-panel > .top > #search-input{
+    width: calc(100% - 140px);
+    display: inline-block;
+}
+#search-panel > .bottom{
+    padding: 10px;
+
+    width: 100%;
+    height: calc(100% - 57px);
+    /* display: flex; */
+    /* flex-wrap: wrap; */
+    /* align-items: flex-start; */
+    /* flex-direction: row; */
+    overflow: auto;
+}
+.loading{display: none;}
+.loading.active{
+    display: block;
+    margin: 35vh auto;
+    text-align: center;
+}
+.info_al{display: none;}
+.info_al.active{
+    display: block;
+    margin: 35vh auto;
+    color: #888;
+    word-wrap: normal;
+    text-align: center;
+}
+#search-panel > .bottom > div.search-r{
+    width: 100%;
+    box-shadow: 0 0 2px #888;
+    padding: 5px;
+    margin:5px auto;
+}
+#search-panel > .bottom > div.search-r .header{
+    font-weight: bold;
+    color:#444;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+
+/* INFO */
+#info{
+    padding: 7px;
+}
+#info>.card{
+    padding: 5px;
+    margin: 5px auto;
+    clear: both;
+}
+#info>.card > .header{
+    font-weight: bold;
+    color:#444;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+.stok-box {
+    width: 100%;
+    /* height: 120px; */
+    overflow-x: auto;
+    white-space: nowrap;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.stok-box > .stok {
+    padding: 4px;
+    min-width: 120px;
+    height: 100px;
+    display: inline-block;
+    background: #fff;
+    margin: 0 5px;
+}
+.stok-box > .stok::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 30px;
+    background: center no-repeat url("../IMG/div.png");
+    background-size: contain;
+}
+.stok-box > .stok > .name {
+    margin: 4px auto;
+    text-align: center;
+}
+.stok-box > .stok > .count {
+    margin: 4px auto;
+    text-align: center;
+}
+
+
+/* PRINTER */
+#printer {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    right: -100vw;
+    top: 0;
+    background: #fff;
+    box-shadow: 0 0 3px #ddd;
+    transition:right .7s;
+    z-index: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#printer.active{
+    right: 0;
+}
+#printer > .close{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top:15px;
+    left: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 2px #333;
+    border-radius: 50%;
+    line-height: unset;
+    vertical-align: middle;
+}
+#printer .info_print {
+    width: 85%;
+}
+#printer .info_print .printer_barada{
+    max-width: 60vw;
+    margin: 10px auto;
+    box-shadow: 0 0 2px #777;
+    background: #fff;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+    
+
+}
+#printer .info_print .printer_barada > .printer-name{
+    font-weight: bold;
+    text-transform: uppercase;
+}
+#printer .info_print .miktar {
+    width: 60vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-self: center;
+    align-items: center;
+        margin: 0 auto;;
+}
+#printer .info_print .miktar > label {
+    width: 100%;
+    text-align: center;
+}
+#printer .info_print .miktar > input,
+#printer .info_print .miktar > select {
+    margin: 0 auto;
+    width: calc(100% - 100px);
+    text-align: center;
+    font-size: 18px;
+}
+#printer .info_print .miktar > select {
+    width: 100%;
+}
+#printer .info_print .birim {
+    width: 60vw;
+    justify-self: center;
+    align-items: center;
+    display: none;
+    margin: 0 auto;
+}
+#printer .info_print .birim.active {
+    display: flex;
+    flex-wrap: wrap;
+}
+#printer .info_print .birim > label {
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+}
+#printer .info_print .birim > input {
+    margin: 0 auto;
+    width: calc(100% - 100px);
+    text-align: center;
+    font-size: 18px;
+}
+#printer .info_print #yazdir_son{
+    display: block;
+    margin: 1.5rem auto !important;
+}

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../css/bootstrap.css" />
+        <link rel="stylesheet" href="../css/index_terminal.css" />
+        <link rel="icon" href="../IMG/LOGO.ico" type="image/icon type" />
+        <title>MB</title>
+    </head>
+    <body>
+        <input
+            type="text"
+            name="barcode"
+            id="barcodeInput"
+            style="
+                display: block;
+                position: fixed;
+                left: 100vw;
+                top: 100vw;
+                display: none;
+            "
+        />
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="nav-link" id="search-btn"></div>
+            <div class="nav-link" id="barcode-btn" class="active"></div>
+            <button
+                class="navbar-toggler"
+                data-toggle="collapse"
+                data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <hr />
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="sanaw.html"> Sanov </a>
+                        <div
+                            class="nav-link"
+                            href="#"
+                            data-toggle="modal"
+                            data-target="#printerSettings"
+                        >
+                            Sazlamalar
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div id="info">
+            <div class="info_al active">
+                Haryt barada maglumat üçin haryt okadyň.
+            </div>
+            <div class="loading">
+                <div class="spinner-grow text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="search-panel">
+            <div class="top">
+                <input
+                    type="search"
+                    class="form-control"
+                    id="search-input"
+                    placeholder="Gözleg sözi"
+                />
+                <button class="btn btn-primary" id="search-input-btn">
+                    Gözle
+                </button>
+                <button class="btn btn-outline-primary" id="search-close">
+                    Ýap
+                </button>
+            </div>
+            <div class="bottom">
+                <div class="loading">
+                    <div class="spinner-grow text-primary" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+                <div class="info_al active">
+                    Gözleg sözüni ýazyň we "Gözle" düwmesine basyň...
+                </div>
+            </div>
+        </div>
+
+        <div id="printer" class="">
+            <div class="close">&times;</div>
+            <div class="info_print">
+                <div
+                    class="printer_barada"
+                    data-toggle="modal"
+                    data-target="#printerSettings"
+                >
+                    <div class="printer-name">Barcode PC</div>
+                    <div class="printer-alt-info">BARCODE | 45x15 | Ribon</div>
+                </div>
+                <div class="miktar">
+                    <label>Etiket Sayısı</label>
+                    <div class="miktar-m btn btn-primary"><</div>
+                    <input
+                        type="number"
+                        class="form-control"
+                        name=""
+                        id="miktar-printer"
+                        value="1"
+                    />
+                    <div class="miktar-p btn btn-primary">></div>
+                </div>
+
+                <div class="birim">
+                    <label>Barkod Sayısı</label>
+                    <div class="birim-m btn btn-primary"><</div>
+                    <input
+                        type="number"
+                        class="form-control"
+                        name=""
+                        id="birim-printer"
+                        value="1"
+                        step="0.001"
+                    />
+                    <div class="birim-p btn btn-primary">></div>
+                </div>
+                <button
+                    id="yazdir_son"
+                    class="btn btn-primary m-4"
+                    style="width: 60%"
+                >
+                    Yazdır
+                </button>
+            </div>
+        </div>
+
+        <div
+            class="modal fade"
+            id="printerSettings"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="printerSettingsTitle"
+            data-backdrop="false"
+        >
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">
+                            Printer Sazlamasy
+                        </h5>
+                    </div>
+                    <div class="modal-body">
+                        <label>Printer</label>
+                        <select
+                            name="printers"
+                            id="printers-printer"
+                            class="form-control"
+                        ></select>
+                        <label>Çap etme görnüşi</label>
+                        <select
+                            name="ribon"
+                            id="ribon_type"
+                            class="form-control"
+                        >
+                            <option value="0">Göni çap et</option>
+                            <option value="1">Ribonly çap et</option>
+                        </select>
+                        <label>Yazdırma türü</label>
+                        <select
+                            name="printers"
+                            id="print_type"
+                            class="form-control"
+                        >
+                            <option value="B">Barkod</option>
+                            <option value="F">Fiyat</option>
+                        </select>
+                        <label for="size" class="d-none">Ölçeg</label>
+                        <select
+                            name="size"
+                            id="size_page"
+                            class="form-control d-none"
+                        >
+                            <option value="103x38">103x38</option>
+                            <option value="80x30">80x30</option>
+                            <option value="40x30">40x30</option>
+                            <option value="38x25">38x25</option>
+                            <option value="45x15">45x15</option>
+                        </select>
+                        <label for="tarih" class="d-none">Fiyat Tarihi</label>
+                        <input
+                            type="date"
+                            name="tarih"
+                            id="tarih"
+                            class="d-none"
+                            style="
+                                width: 100%;
+                                background-color: #fff;
+                                height: 40px;
+                                padding: 10px 7px;
+                            "
+                        />
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            data-dismiss="modal"
+                            id="printer-settings-save"
+                        >
+                            Ýatda sakla
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="../js/jquery.js"></script>
+    <script src="../js/bootstrap.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/cookies.js"></script>
+    <script src="../js/fetch_terminal.js"></script>
+    <script src="../js/index.js"></script>
+    <script src="../js/terminal_barcode.js"></script>
+</html>

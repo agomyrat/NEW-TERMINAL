@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../css/bootstrap.css" />
+        <link rel="stylesheet" href="../css/Sanaw.css" />
+        <link rel="icon" href="../IMG/LOGO.ico" type="image/icon type" />
+        <title>Sanaw</title>
+    </head>
+    <body>
+        <input
+            type="text"
+            name="barcode"
+            id="barcodeInput"
+            style="
+                display: block;
+                position: fixed;
+                left: 100vw;
+                top: 100vw;
+                display: none;
+            "
+        />
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="nav-link" id="transfer-btn"></div>
+            <div class="nav-link" id="barcode-btn" class="active"></div>
+            <button
+                class="navbar-toggler"
+                data-toggle="collapse"
+                data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <hr />
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html"
+                            >Haryt Maglumaty</a
+                        >
+                    </li>
+
+                    <li class="nav-item">
+                        <div class="nav-link">Sanowy Arassala</div>
+                    </li>
+                    <li class="nav-item">
+                        <div
+                            class="nav-link"
+                            href="#"
+                            data-toggle="modal"
+                            data-target="#printerSettings"
+                        >
+                            Sazlamalar
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div
+            id="info"
+            onselectstart="return false;"
+            onmousedown="return false;"
+        >
+            <!-- <div class="items" >
+          <div class="item-info">
+            <div class="code">01AD12.654168G8E4-58</div>
+            <div class="name">Lorem ipsum dolor sit amet consectetur adipisicing.</div>
+          </div>
+          <div class="count">
+            <div class="up" click=''></div>
+            <input type="number" name="" id="" value="154.40">
+            <div class="down"></div>
+          </div>
+        </div> -->
+        </div>
+    </body>
+
+    <script src="../js/jquery.js"></script>
+    <script src="../js/bootstrap.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/cookies.js"></script>
+    <script src="../js/sanaw.js"></script>
+</html>
