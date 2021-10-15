@@ -1,13 +1,14 @@
-body{
+body {
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
+    overflow-y: scroll;
 }
-nav.navbar{
+nav.navbar {
     background: #fff !important;
     box-shadow: 0 0 2px #888;
 }
-nav.navbar > .nav-link, nav.navbar > button.navbar-toggler{
+nav.navbar > .nav-link,
+nav.navbar > button.navbar-toggler {
     width: 80px;
     height: 80px;
     background-size: 40px;
@@ -16,20 +17,20 @@ nav.navbar > .nav-link, nav.navbar > button.navbar-toggler{
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 0.25rem;
 }
-nav.navbar > button.navbar-toggler:focus{
-    outline:unset;
+nav.navbar > button.navbar-toggler:focus {
+    outline: unset;
 }
-#search-btn{
-    background-image:url('../IMG/search.png');
-    background-color:transparent;
+#search-btn {
+    background-image: url('../IMG/search.png');
+    background-color: transparent;
 }
-#barcode-btn{
+#barcode-btn {
     background-color: #fff;
-    background-image:url('../IMG/barcode.png');
+    background-image: url('../IMG/barcode.png');
 }
 
 /* SEARCH PANEL */
-#search-panel{
+#search-panel {
     width: 100vw;
     height: 100vh;
     position: fixed;
@@ -37,30 +38,29 @@ nav.navbar > button.navbar-toggler:focus{
     left: -100vw;
     background: #fff;
     box-shadow: 0 0 3px #ddd;
-    transition:left .7s;
+    transition: left 0.7s;
 }
 
-#search-panel.active{
+#search-panel.active {
     z-index: 10;
-    left:0;
+    left: 0;
 }
 
-#search-panel > .top{
+#search-panel > .top {
     width: 100%;
-    height: 45px; 
+    height: 45px;
     margin: 10px auto 2px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     background: #fff;
     padding: 10px;
-
 }
-#search-panel > .top > #search-input{
+#search-panel > .top > #search-input {
     width: calc(100% - 140px);
     display: inline-block;
 }
-#search-panel > .bottom{
+#search-panel > .bottom {
     padding: 10px;
 
     width: 100%;
@@ -71,46 +71,49 @@ nav.navbar > button.navbar-toggler:focus{
     /* flex-direction: row; */
     overflow: auto;
 }
-.loading{display: none;}
-.loading.active{
+.loading {
+    display: none;
+}
+.loading.active {
     display: block;
     margin: 35vh auto;
     text-align: center;
 }
-.info_al{display: none;}
-.info_al.active{
+.info_al {
+    display: none;
+}
+.info_al.active {
     display: block;
     margin: 35vh auto;
     color: #888;
     word-wrap: normal;
     text-align: center;
 }
-#search-panel > .bottom > div.search-r{
+#search-panel > .bottom > div.search-r {
     width: 100%;
     box-shadow: 0 0 2px #888;
     padding: 5px;
-    margin:5px auto;
+    margin: 5px auto;
 }
-#search-panel > .bottom > div.search-r .header{
+#search-panel > .bottom > div.search-r .header {
     font-weight: bold;
-    color:#444;
+    color: #444;
     font-size: 16px;
     text-transform: uppercase;
 }
 
-
 /* INFO */
-#info{
+#info {
     padding: 7px;
 }
-#info>.card{
+#info > .card {
     padding: 5px;
     margin: 5px auto;
     clear: both;
 }
-#info>.card > .header{
+#info > .card > .header {
     font-weight: bold;
-    color:#444;
+    color: #444;
     font-size: 16px;
     text-transform: uppercase;
 }
@@ -131,11 +134,11 @@ nav.navbar > button.navbar-toggler:focus{
     margin: 0 5px;
 }
 .stok-box > .stok::before {
-    content: "";
+    content: '';
     display: block;
     width: 100%;
     height: 30px;
-    background: center no-repeat url("../IMG/div.png");
+    background: center no-repeat url('../IMG/div.png');
     background-size: contain;
 }
 .stok-box > .stok > .name {
@@ -147,7 +150,6 @@ nav.navbar > button.navbar-toggler:focus{
     text-align: center;
 }
 
-
 /* PRINTER */
 #printer {
     width: 100vw;
@@ -157,20 +159,20 @@ nav.navbar > button.navbar-toggler:focus{
     top: 0;
     background: #fff;
     box-shadow: 0 0 3px #ddd;
-    transition:right .7s;
+    transition: right 0.7s;
     z-index: 500;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-#printer.active{
+#printer.active {
     right: 0;
 }
-#printer > .close{
+#printer > .close {
     position: absolute;
     width: 30px;
     height: 30px;
-    top:15px;
+    top: 15px;
     left: 15px;
     display: flex;
     align-items: center;
@@ -183,7 +185,7 @@ nav.navbar > button.navbar-toggler:focus{
 #printer .info_print {
     width: 85%;
 }
-#printer .info_print .printer_barada{
+#printer .info_print .printer_barada {
     max-width: 60vw;
     margin: 10px auto;
     box-shadow: 0 0 2px #777;
@@ -191,10 +193,8 @@ nav.navbar > button.navbar-toggler:focus{
     border-radius: 5px;
     padding: 5px;
     text-align: center;
-    
-
 }
-#printer .info_print .printer_barada > .printer-name{
+#printer .info_print .printer_barada > .printer-name {
     font-weight: bold;
     text-transform: uppercase;
 }
@@ -204,7 +204,7 @@ nav.navbar > button.navbar-toggler:focus{
     flex-wrap: wrap;
     justify-self: center;
     align-items: center;
-        margin: 0 auto;;
+    margin: 0 auto;
 }
 #printer .info_print .miktar > label {
     width: 100%;
@@ -242,7 +242,7 @@ nav.navbar > button.navbar-toggler:focus{
     text-align: center;
     font-size: 18px;
 }
-#printer .info_print #yazdir_son{
+#printer .info_print #yazdir_son {
     display: block;
     margin: 1.5rem auto !important;
 }
