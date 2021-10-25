@@ -301,6 +301,14 @@ document.querySelector('.close').addEventListener('click', closeOpenPrint);
 
 function closeOpenPrint() {
     document.querySelector('#printer').classList.toggle('active');
+    if (getCookie('printer')) {
+        const printer = JSON.parse(getCookie('printer'));
+        if (printer?.printType?.value === 'B') {
+            document.querySelector('#birim-printer').select();
+        } else {
+            document.querySelector('#miktar-printer').select();
+        }
+    }
 }
 
 // print miktar settings

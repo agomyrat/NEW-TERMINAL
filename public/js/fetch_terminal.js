@@ -247,6 +247,15 @@ document.querySelector('#yazdir_son').addEventListener('click', () => {
             size,
         };
         closeOpenPrint();
+
+        // after print button clicked
+        if (window.location.href.toLowerCase().indexOf('mbt') != -1) {
+            barcodeInput.value = '';
+            barcodeInput.style.display = 'block';
+            barcodeInput.focus();
+            BARCODE = '';
+        }
+
         fetch(`../api/v1/print/`, {
             headers: {
                 'Content-Type': 'application/json',
