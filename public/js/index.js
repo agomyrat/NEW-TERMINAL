@@ -149,7 +149,7 @@ function renderPrinterSettings() {
     if (printer) {
         // Ribon settings
         for (ribon of document.querySelector('#ribon_type').options) {
-            if (ribon.value == printer?.ribon?.value) {
+            if (ribon.value == printer.ribon.value) {
                 document.querySelector('#ribon_type').selectedIndex =
                     ribon.index;
             }
@@ -157,10 +157,10 @@ function renderPrinterSettings() {
 
         // printType settings
         for (type of document.querySelector('#print_type').options) {
-            if (type.value == printer?.printType?.value) {
+            if (type.value == printer.printType.value) {
                 document.querySelector('#print_type').selectedIndex =
                     type.index;
-                if (printer?.printType?.value == 'F') {
+                if (printer.printType.value == 'F') {
                     document
                         .querySelector('[for="size"]')
                         .classList.remove('d-none');
@@ -195,17 +195,17 @@ function renderPrinterSettings() {
 
         // Size settings
         for (size of document.querySelector('#size_page').options) {
-            if (size.value == printer?.size) {
+            if (size.value == printer.size) {
                 document.querySelector('#size_page').selectedIndex = size.index;
             }
         }
 
         // Printer info settings
         document.querySelector('.printer_barada>.printer-name').innerHTML =
-            printer?.printer?.name;
+            printer.printer.name;
         document.querySelector(
             '.printer_barada>.printer-alt-info'
-        ).innerHTML = `${printer?.printType?.text} | ${printer?.size} | ${printer?.ribon?.text}`;
+        ).innerHTML = `${printer.printType.text} | ${printer.size} | ${printer.ribon.text}`;
     } else {
         // If printer cookies empty show printer settings
         $('#printerSettings').modal('show');
@@ -239,21 +239,21 @@ document
         // Printer id and name set
         printerSelection = document.querySelector('#printers-printer');
         printerSettings.printer = {
-            id: printerSelection?.value,
+            id: printerSelection.value,
             name: printerSelection.options[printerSelection.selectedIndex].text,
         };
 
         // Printer ribon set
         ribonSelection = document.querySelector('#ribon_type');
         printerSettings.ribon = {
-            value: ribonSelection?.value,
+            value: ribonSelection.value,
             text: ribonSelection.options[ribonSelection.selectedIndex].text,
         };
 
         // Print type set
         printTypeSelection = document.querySelector('#print_type');
         printerSettings.printType = {
-            value: printTypeSelection?.value,
+            value: printTypeSelection.value,
             text: printTypeSelection.options[printTypeSelection.selectedIndex]
                 .text,
         };
@@ -272,11 +272,11 @@ document
 
         // Printer Label info set
         document.querySelector('.printer_barada>.printer-name').innerHTML =
-            printerSettings?.printer?.name;
+            printerSettings.printer.name;
 
         document.querySelector(
             '.printer_barada>.printer-alt-info'
-        ).innerHTML = `${printerSettings?.printType?.text} | ${printerSettings?.size} | ${printerSettings?.ribon?.text}`;
+        ).innerHTML = `${printerSettings.printType.text} | ${printerSettings.size} | ${printerSettings.ribon.text}`;
     });
 
 // When change printType show or hide size, date
@@ -303,7 +303,7 @@ function closeOpenPrint() {
     document.querySelector('#printer').classList.toggle('active');
     if (getCookie('printer')) {
         const printer = JSON.parse(getCookie('printer'));
-        if (printer?.printType?.value === 'B') {
+        if (printer.printType.value === 'B') {
             document.querySelector('#birim-printer').select();
         } else {
             document.querySelector('#miktar-printer').select();

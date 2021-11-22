@@ -155,7 +155,7 @@ const fetchInfoDataWithID = (id) => {
         .then((data) => {
             hideInfoPanelLoading();
             renderProductInfo(data);
-            ITEMS_REF = data?.id ? data.id : 0;
+            ITEMS_REF = data.id ? data.id : 0;
         })
         .catch((err) => {
             console.error(err);
@@ -204,8 +204,8 @@ const fetchInfoDataWithBarcode = (barcode) => {
         .then((data) => {
             hideInfoPanelLoading();
             renderProductInfo(data);
-            ITEMS_REF = data?.id ? data.id : 0;
-            BARCODE = data?.id ? BARCODE : '';
+            ITEMS_REF = data.id ? data.id : 0;
+            BARCODE = data.id ? BARCODE : '';
         })
         .catch((err) => {
             console.error(err);
@@ -227,13 +227,13 @@ document.querySelector('#yazdir_son').addEventListener('click', () => {
         const id = ITEMS_REF;
         const miktar = document.querySelector('#miktar-printer').value;
         const birim = document.querySelector('#birim-printer').value;
-        const printer_id = JSON.parse(getCookie('printer'))?.printer?.id;
-        const ribon = JSON.parse(getCookie('printer'))?.ribon?.value;
-        const print_type = JSON.parse(getCookie('printer'))?.printType?.value;
+        const printer_id = JSON.parse(getCookie('printer')).printer.id;
+        const ribon = JSON.parse(getCookie('printer')).ribon.value;
+        const print_type = JSON.parse(getCookie('printer')).printType.value;
         const galyndy = BARCODE;
         const kapak = 1;
         const tarih = document.querySelector('#tarih').value;
-        const size = JSON.parse(getCookie('printer'))?.size;
+        const size = JSON.parse(getCookie('printer')).size;
         const data = {
             id,
             miktar,
@@ -265,7 +265,7 @@ document.querySelector('#yazdir_son').addEventListener('click', () => {
         })
             .then((data) => data.json())
             .then((data) => {
-                if (data?.status == 'success') {
+                if (data.status == 'success') {
                 } else {
                     console.error(err);
                     alert('Ýalňyşlyk döredi. Sahypany täzeläp dowam ediň');
