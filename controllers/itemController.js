@@ -3,7 +3,7 @@ const catchAsync = require('../utils/catchAsync');
 const { QueryTypes, Model, Sequelize } = require('sequelize');
 
 exports.getById = catchAsync(async (req, res, next) => {
-    const { id } = +req.params;
+    const { id } = req.params;
     if (id) {
         const info = await db.query(
             `
@@ -90,37 +90,35 @@ exports.search = catchAsync(async (req, res, next) => {
 });
 
 exports.getByBarcode = catchAsync(async (req, res, next) => {
-    const { barcode } = req.params;
+    const barcode = req.params.barcode;
     if (!barcode) {
         res.status(400).json({
             status: 'failed',
             message: 'Barcode is missing or worng',
         });
     }
-    const info = await db.query(
-        `
-                    SELECT TOP 1 ITEMS.LOGICALREF id, ITEMS.CODE code, ITEMS.NAME name, CONCAT(PRICE.PRICE, ' ',CURREN.CURCODE) price, UNITSETF.CODE unit, FORMAT(PRICE.BEGDATE,'yyyy.MM.dd') last_updated_price
-                    FROM LG_${process.env.FIRM_NR}_ITEMS ITEMS
-                    LEFT JOIN LG_${process.env.FIRM_NR}_PRCLIST PRICE ON PRICE.CARDREF = ITEMS.LOGICALREF AND PRICE.LOGICALREF = (SELECT MAX(P2.LOGICALREF) 
-                            FROM LG_${process.env.FIRM_NR}_PRCLIST P2	
-                            LEFT JOIN LG_${process.env.FIRM_NR}_PRCLSTDIV PD2 ON PD2.PARENTPRCREF = P2.LOGICALREF WHERE P2.CARDREF = ITEMS.LOGICALREF 
-                            AND P2.PTYPE = 2 AND CLSPECODE = '' AND BEGDATE <= GETDATE() AND ENDDATE > GETDATE() 
-                            AND (PD2.DIVCODES = '-1' OR PD2.DIVCODES LIKE '%0${process.env.ISH_YERI}%'))
-                    LEFT JOIN L_CURRENCYLIST AS CURREN ON PRICE.CURRENCY = CURREN.CURTYPE AND CURREN.FIRMNR = ${process.env.FIRM_NR}
-                    LEFT JOIN LG_${process.env.FIRM_NR}_UNITSETF AS UNITSETF ON ITEMS.UNITSETREF = UNITSETF.LOGICALREF 
-                    LEFT JOIN LG_${process.env.FIRM_NR}_PRCLSTDIV PRCLSTDIV ON PRCLSTDIV.PARENTPRCREF = PRICE.LOGICALREF 
-                    LEFT JOIN LG_${process.env.FIRM_NR}_UNITBARCODE B1 ON B1.ITEMREF = ITEMS.LOGICALREF
-                    LEFT JOIN MB_BARCODE_SYS BSYS ON B1.BARCODE LIKE  CONCAT(BSYS.START_CODE,'%') AND LEN(B1.BARCODE) = (LEN(BSYS.START_CODE) + ITEM_LENGTH)
-                    WHERE (LEFT(:barcode, LEN(ISNULL(BSYS.START_CODE,0)) + ISNULL(BSYS.ITEM_LENGTH,0)) = B1.BARCODE OR B1.BARCODE = :barcode) AND
-                    ITEMS.ACTIVE = 0 AND PRICE.BEGDATE <= GETDATE() AND PRICE.ENDDATE > GETDATE() AND 
-                    PRICE.PTYPE = 2 AND PRICE.CLSPECODE = '' AND
-                    (PRCLSTDIV.DIVCODES = '-1' OR PRCLSTDIV.DIVCODES LIKE '%0${process.env.ISH_YERI}%')
-                    GROUP BY ITEMS.LOGICALREF, ITEMS.CODE, ITEMS.NAME, CONCAT(PRICE.PRICE, ' ',CURREN.CURCODE), UNITSETF.CODE, PRICE.BEGDATE`,
-        {
-            replacements: { barcode },
-            type: QueryTypes.SELECT,
-        }
-    );
+    const sqlQuery = `
+    SELECT TOP 1 ITEMS.LOGICALREF id, ITEMS.CODE code, ITEMS.NAME name, CONCAT(PRICE.PRICE, ' ',CURREN.CURCODE) price, UNITSETF.CODE unit, FORMAT(PRICE.BEGDATE,'yyyy.MM.dd') last_updated_price
+    FROM LG_${process.env.FIRM_NR}_ITEMS ITEMS
+    LEFT JOIN LG_${process.env.FIRM_NR}_PRCLIST PRICE ON PRICE.CARDREF = ITEMS.LOGICALREF AND PRICE.LOGICALREF = (SELECT MAX(P2.LOGICALREF) 
+            FROM LG_${process.env.FIRM_NR}_PRCLIST P2	
+            LEFT JOIN LG_${process.env.FIRM_NR}_PRCLSTDIV PD2 ON PD2.PARENTPRCREF = P2.LOGICALREF WHERE P2.CARDREF = ITEMS.LOGICALREF 
+            AND P2.PTYPE = 2 AND CLSPECODE = '' AND BEGDATE <= GETDATE() AND ENDDATE > GETDATE() 
+            AND (PD2.DIVCODES = '-1' OR PD2.DIVCODES LIKE '%0${process.env.ISH_YERI}%'))
+    LEFT JOIN L_CURRENCYLIST AS CURREN ON PRICE.CURRENCY = CURREN.CURTYPE AND CURREN.FIRMNR = ${process.env.FIRM_NR}
+    LEFT JOIN LG_${process.env.FIRM_NR}_UNITSETF AS UNITSETF ON ITEMS.UNITSETREF = UNITSETF.LOGICALREF 
+    LEFT JOIN LG_${process.env.FIRM_NR}_PRCLSTDIV PRCLSTDIV ON PRCLSTDIV.PARENTPRCREF = PRICE.LOGICALREF 
+    LEFT JOIN LG_${process.env.FIRM_NR}_UNITBARCODE B1 ON B1.ITEMREF = ITEMS.LOGICALREF
+    LEFT JOIN MB_BARCODE_SYS BSYS ON B1.BARCODE LIKE  CONCAT(BSYS.START_CODE,'%') AND LEN(B1.BARCODE) = (LEN(BSYS.START_CODE) + ITEM_LENGTH)
+    WHERE (LEFT('${barcode}', LEN(ISNULL(BSYS.START_CODE,0)) + ISNULL(BSYS.ITEM_LENGTH,0)) = B1.BARCODE OR B1.BARCODE = '${barcode}') AND
+    ITEMS.ACTIVE = 0 AND PRICE.BEGDATE <= GETDATE() AND PRICE.ENDDATE > GETDATE() AND 
+    PRICE.PTYPE = 2 AND PRICE.CLSPECODE = '' AND
+    (PRCLSTDIV.DIVCODES = '-1' OR PRCLSTDIV.DIVCODES LIKE '%0${process.env.ISH_YERI}%')
+    GROUP BY ITEMS.LOGICALREF, ITEMS.CODE, ITEMS.NAME, CONCAT(PRICE.PRICE, ' ',CURREN.CURCODE), UNITSETF.CODE, PRICE.BEGDATE`;
+    // res.send(sqlQuery);
+    const info = await db.query(sqlQuery, {
+        type: QueryTypes.SELECT,
+    });
 
     // get stocks
     info[0] = info[0]
@@ -137,7 +135,7 @@ exports.getByBarcode = catchAsync(async (req, res, next) => {
     info[0].stock = await db.query(
         `
             SELECT DEPO_NR warehouse_nr, WHOUSE.NAME warehouse_name, ISNULL(ONHAND, 0 ) amount
-            FROM MB_DEPO 
+            FROM MB_DEPO
             LEFT JOIN L_CAPIWHOUSE AS WHOUSE ON WHOUSE.NR = DEPO_NR AND FIRMNR=${process.env.FIRM_NR}
             LEFT JOIN ${process.env.STOCK_VIEW} AS GNTOTST ON GNTOTST.STOCKREF = :id AND GNTOTST.INVENNO = DEPO_NR
             ORDER BY  MB_DEPO.ID`,
@@ -161,12 +159,12 @@ exports.getItemForSanaw = catchAsync(async (req, res, next) => {
     const info = await db.query(
         `
     SELECT TOP 1 ITEMS.LOGICALREF id, ITEMS.CODE code, ITEMS.NAME name,
-    (CASE WHEN LEN(:barcode) <> LEN(BR.BARCODE) THEN CONVERT(FLOAT, SUBSTRING(:barcode, LEN(BS.START_CODE)+ BS.ITEM_LENGTH+1, BS.UNIT_LENGTH)) / BS.DEVIDE ELSE 1 END)
+    (CASE WHEN LEN('${barcode}') <> LEN(BR.BARCODE) THEN CONVERT(FLOAT, SUBSTRING('${barcode}', LEN(BS.START_CODE)+ BS.ITEM_LENGTH+1, BS.UNIT_LENGTH)) / BS.DEVIDE ELSE 1 END)
     miktar 
     FROM LG_${process.env.FIRM_NR}_UNITBARCODE BR
     LEFT JOIN MB_BARCODE_SYS BS ON LEFT(BR.BARCODE, LEN(BS.START_CODE)) = CONVERT(VARCHAR, BS.START_CODE) AND(LEN(BS.START_CODE) + BS.ITEM_LENGTH) = LEN(BR.BARCODE)
     LEFT JOIN LG_${process.env.FIRM_NR}_ITEMS ITEMS ON ITEMS.LOGICALREF = BR.ITEMREF
-    WHERE LEFT(:barcode, LEN(BS.START_CODE) + BS.ITEM_LENGTH) = BR.BARCODE OR :barcode = BR.BARCODE 
+    WHERE LEFT('${barcode}', LEN(BS.START_CODE) + BS.ITEM_LENGTH) = BR.BARCODE OR '${barcode}' = BR.BARCODE 
     `,
         {
             replacements: { barcode: barcode },

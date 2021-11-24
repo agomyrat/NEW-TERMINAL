@@ -4,11 +4,14 @@ const db = new Sequelize('SYNC', 'sa', '123456789', {
     host: '172.16.27.2',
     dialect: 'mssql',
     dialectOptions: {
-        // Observe the need for this nested `options` field for MSSQL
+        requestTimeout: 300000,
         options: {
             // Your tedious options here
             useUTC: false,
             dateFirst: 1,
+            cryptoCredentialsDetails: {
+                minVersion: 'TLSv1',
+            },
         },
     },
     operatorsAliases: false,
