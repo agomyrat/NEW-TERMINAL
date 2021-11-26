@@ -120,7 +120,7 @@ exports.getByBarcode = catchAsync(async (req, res, next) => {
     const sqlQuery = `
     SELECT TOP 1  B1.ITEMREF id
     FROM LG_${process.env.FIRM_NR}_UNITBARCODE B1 
-    INNER JOIN MB_BARCODE_SYS BSYS ON B1.BARCODE LIKE  CONCAT(BSYS.START_CODE,'%') AND LEN(B1.BARCODE) = (LEN(BSYS.START_CODE) + ITEM_LENGTH)
+    LEFT JOIN MB_BARCODE_SYS BSYS ON B1.BARCODE LIKE  CONCAT(BSYS.START_CODE,'%') AND LEN(B1.BARCODE) = (LEN(BSYS.START_CODE) + ITEM_LENGTH)
     WHERE (LEFT('${barcode}', LEN(ISNULL(BSYS.START_CODE,0)) + ISNULL(BSYS.ITEM_LENGTH,0)) = B1.BARCODE OR B1.BARCODE = '${barcode}')`;
     const item_id = await db.query(sqlQuery, {
         type: QueryTypes.SELECT,
